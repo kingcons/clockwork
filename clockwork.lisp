@@ -2,15 +2,21 @@
 (defpackage #:clockwork
   (:use :cl :weblocks :local-time
         :f-underscore :anaphora)
-  (:import-from :hunchentoot #:header-in
-		#:set-cookie #:set-cookie* #:cookie-in
-		#:user-agent #:referer)
+  (:import-from :hunchentoot
+		#:header-in
+		#:set-cookie
+		#:set-cookie*
+		#:cookie-in
+		#:user-agent
+		#:referer)
+  (:import-from :split-sequence
+		#:split-sequence)
+  (:export #:start-clockwork
+	   #:stop-clockwork)
   (:documentation
    "A web application based on Weblocks."))
 
 (in-package :clockwork)
-
-(export '(start-clockwork stop-clockwork))
 
 ;; A macro that generates a class or this webapp
 
@@ -35,4 +41,3 @@ arguments."
   "Stops the application by calling 'stop-weblocks'."
   (stop-webapp 'clockwork)
   (stop-weblocks))
-

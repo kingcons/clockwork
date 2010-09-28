@@ -11,7 +11,7 @@
     :author "Brit Butler"
     :licence "LLGPL"
     :description "A yourli.st clone"
-    :depends-on (:weblocks :cl-smtp :local-time)
+    :depends-on (:weblocks :cl-smtp :local-time :trivial-timers)
     :components ((:file "clockwork")
 		 (:module conf
 		  :components ((:file "stores")
