@@ -17,10 +17,17 @@
 				 '(("Content-type"
 				    "text/html; charset=\"iso-8859-1\""))))))
 
-#|
-example usage. put in a docstring?
-(with-encrypted-smtp (:to "redline6561@gmail.com"
-		      :subject "thesubject"
-		      :style :html) ;; or :plaintext
-  "a message to send. just any arbitrary old string. probably an accessor for a reminder's summary slot.")
-|#
+(defvar *sms-gateways*
+  ;; list is derived from http://en.wikipedia.org/wiki/List_of_SMS_gateways
+  '(("AT&T/Cingular" . "txt.att.net")
+    ("Boost Mobile" . "myboostmobile.com")
+    ("MetroPCS" . "mymetropcs.com")
+    ("Sprint/PCS" . "messaging.sprintpcs.com")
+    ("Sprint/Nextel" ."page.nextel.com")
+    ("T-Mobile" . "tmomail.net")
+    ("Verizon" . "vtext.com")
+    ("Virgin Mobile" . "vmobl.com")))
+
+(defun sms-mail-p (email)
+  (let ((domain (second (split-sequence #\@ email))))
+    (member domain *sms-gateways* :key #'cdr :test #'equal)))
