@@ -1,6 +1,6 @@
 (in-package :clockwork)
 
-(defconstant +mail-server+ "smtp.gmail.com")
+(defparameter *mail-server* "smtp.gmail.com")
 
 (defmacro with-encrypted-smtp ((&key to subject style
 			       (from "cl.ockwork.webdev@gmail.com"))
@@ -17,7 +17,7 @@
 				 '(("Content-type"
 				    "text/html; charset=\"iso-8859-1\""))))))
 
-(defvar *sms-gateways*
+(defparameter *sms-gateways*
   ;; list is derived from http://en.wikipedia.org/wiki/List_of_SMS_gateways
   '(("AT&T/Cingular" . "txt.att.net")
     ("Boost Mobile" . "myboostmobile.com")
