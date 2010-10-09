@@ -1,5 +1,10 @@
 (in-package :clockwork)
 
+;; Originally written by Aaron Feng using cl-date-calc:
+;; See http://common-lisp.net/project/cl-date-calc/
+;; Ported to local-time by Brit Butler 2010/10/09
+;; See http://common-lisp.net/project/local-time/manual.html
+
 ;; % cat model/calendar.lisp
 (defparameter *month-names*
   '("" "January" "February" "March" "April" "May" "June"
@@ -21,13 +26,18 @@
   (timestamp-year (now)))
 
 (defun day-of-month-name (month year day)
-  (timestamp-day-of-week
-   (encode-timestamp 0 0 0 0 day month year)))
+  (let ((day-number (timestamp-day-of-week
+		     (encode-timestamp 0 0 0 0 day month year))))
+    (if (= day-number 0)
+	7
+	day-number)))
 
 (defun adjust-month (year month adjustment)
-  (timestamp+
-   (encode-timestamp 0 0 0 0 0 month year)
-   adjustment :month))
+  (let ((adjusted-timestamp (timestamp+
+			     (encode-timestamp 0 0 0 0 1 month year)
+			     adjustment :month)))
+    (values (timestamp-year adjusted-timestamp)
+	    (timestamp-month adjusted-timestamp))))
 
 (defun nth-month-name (month)
     (nth month *month-names*))
@@ -130,6 +140,7 @@
   (nth (display-month widget) *month-names*))
 
 (defmethod render-widget-body ((widget calendar-widget) &rest args)
+  (declare (ignore args))
   (create-month-nav-link "Previous" widget -1)
   (with-html (:br))
   (create-month-nav-link "Next" widget 1)
@@ -147,7 +158,7 @@
               (loop for current-day in days do
                 (when (zerop (mod day-counter 7)) (with-html (:tr)))
                 (incf day-counter)
-                (htm (:td :class (when (equal (list current-day current-month current-year)
+                (cl-who:htm (:td :class (when (equal (list current-day current-month current-year)
                                               (selected-date widget))
                                        "current-day")
                       :onclick (parenscript:ps* `(setf (slot-value (document.get-element-by-id "event-date")
@@ -159,7 +170,7 @@
                                      (current-month current-month)
                                      (current-day current-day))
                                  (f_% (setf (selected-date widget) (list current-day current-month current-year))))
-                               (escape-string (format nil "~D" current-day))))))))))))
+                               (cl-who:escape-string (format nil "~D" current-day))))))))))))
 
 (defmethod dependencies append ((widget calendar-widget))
   (list (make-local-dependency :stylesheet "calendar")))
