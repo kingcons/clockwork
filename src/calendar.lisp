@@ -148,7 +148,7 @@
   (with-html
     (:table
       (:tr (:td :colspan "7" (str (format nil "~a ~a" (month-name widget) (display-year widget)))))
-      (:tr (:th "So" ) (:th "Mo") (:th "Di") (:th "Mi") (:th "Do") (:th "Fr") (:th "Sa"))
+      (:tr (:th "Su" ) (:th "Mo") (:th "Tu") (:th "We") (:th "Th") (:th "Fr") (:th "Sa"))
       (let ((months (build-calendar (display-year widget) (display-month widget)))
             (day-counter 0))
         (loop for month in months do
