@@ -22,10 +22,13 @@
 
 (defwebapp clockwork
     :prefix "/"
-    :description "clockwork: A new application"
+    :description "Fire-and-Forget Event Reminders"
     :init-user-session 'clockwork::init-user-session
     :autostart nil                   ;; have to start the app manually
     :ignore-default-dependencies nil ;; accept the defaults
+    :dependencies '((:stylesheet "jquery-ui")
+		    (:script "jquery.min")
+		    (:script "jquery-ui.min"))
     :debug t
     )
 

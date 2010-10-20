@@ -4,5 +4,4 @@
 ;; Define callback function to initialize new sessions
 (defun init-user-session (root)
   (setf (widget-children root)
-	(make-instance 'reminder-form)))
-
+	(make-reminder-form)))
