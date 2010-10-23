@@ -4,9 +4,7 @@ Fixup:
 -- Event-date is returning nil. Shite.
 Write get-reminder-time and get-event-time. Return local-time objects with timezone offsets with them.
 TEST IT!
-Contact us/Other homepage stuff. About your data privacy? Reminder Successfully scheduled overlay/lightbox-ish-thing?
-Labelless, side-by-side dropdowns for hour/minutes with CSS. Check chat logs with Leslie. Probably need an event-time slot in the widget for this. :P
----- They seem to do a 24 hour dropdown for hour, 15/30/45/00 dropdown for minutes.
+Contact us? (just a mailto:cl.ockwork.webdev@gmail.com maybe rather than a whole form...)
 
 REMINDERS:
 -- Note that we assume users will input the remind-date in the same timezone as the event-date. Remind them?
@@ -14,8 +12,10 @@ REMINDERS:
 
 Phase2: MAKE IT MO PRETTIFUL!
 -- Rewrite using new form-widget stuff.
+---- Once send method is selected form changes to have the appropriate fields via AJAX.
+-- Use CSS for labelless, side by side dropdowns for the time.
 -- Clockwork art deco logo by one of my art friends?
--- Once send method is selected form changes to have the appropriate fields via AJAX?
+-- Flesh out the homepage. About your data privacy? Reminder Successfully scheduled overlay/lightbox-ish-thing?
 Phase3: MAKE IT MO FEATUROUS!
 -- Confirmation email with link to delete reminders?
 -- Add support for repeating events? (Daily,Weekly,Monthly,Yearly?)
