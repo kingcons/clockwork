@@ -1,4 +1,3 @@
-
 (defpackage #:clockwork
   (:use :cl :weblocks :local-time
         :f-underscore :anaphora)
@@ -26,6 +25,7 @@
     :init-user-session 'clockwork::init-user-session
     :autostart nil                   ;; have to start the app manually
     :ignore-default-dependencies nil ;; accept the defaults
+    :hostnames '("clockwork.redlinernotes.com")
     :dependencies '((:stylesheet "jquery-ui")
 		    (:script "jquery.min")
 		    (:script "jquery-ui.min"))
