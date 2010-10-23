@@ -17,17 +17,18 @@
                                     &rest args &key intermediate-values &allow-other-keys)
   (declare (ignore args intermediate-values))
   (let ((attrib-name (attributize-name (view-field-slot-name field))))
-    (with-html (:div :id attrib-name
-		     (send-script
-		      (format nil
-"$(function() {
-    $(\"#event-date\").datepicker();
-});"))))))
+    (with-html
+      (:div :id attrib-name
+	    (send-script
+	     (ps:ps ($jquery (lambda ()
+			 (ps:chain ($jquery "#event-date") (datepicker))))))))))
 
-;; (parenscript:ps
-;;   (parenscript:chain ($ (parenscript::func ()
-;; 					   ($ "#event-date")
-;; 					   (datepicker)))))))))
+;; WARNING: EVIL HACK TERRITORY!
+;; Note that we had to reverse the order of render-page-headers and the mapc call
+;; in weblocks render-page function for this to work.
+(defmethod render-page-headers ((app clockwork))
+   (with-html
+     (:script "var $jquery = jQuery.noConflict();")))
 
 ;; parser
 (defclass calendar-parser (text-parser)
