@@ -3,6 +3,8 @@ Fixup:
 -- Event-date is returning nil. Finish the calendar parser to return '(day month year).
 TEST IT!
 Contact us? (just a mailto:cl.ockwork.webdev@gmail.com maybe rather than a whole form...)
+Add a Readme file (markdown?) that points to the CL Web Primer 1 article 
+and mentions the need to add conf/confidential.lisp with a valid gmail email+pass.
 
 REMINDERS:
 -- Note that we assume users will input the remind-date in the same timezone as the event-date. Remind them?
