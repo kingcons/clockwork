@@ -1,8 +1,6 @@
 TODO:
 Fixup:
--- There are off-by-one errors in event-hour, event-minute, timezone and remind-me. WTH?
--- Event-date is returning nil. Shite.
-Write get-reminder-time and get-event-time. Return local-time objects with timezone offsets with them.
+-- Event-date is returning nil. Finish the calendar parser to return '(day month year).
 TEST IT!
 Contact us? (just a mailto:cl.ockwork.webdev@gmail.com maybe rather than a whole form...)
 

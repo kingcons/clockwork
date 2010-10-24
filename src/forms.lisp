@@ -38,7 +38,7 @@
      collecting `(,(format nil "~d" i) . ,i)))
 
 (defview reminder-form-view (:type form :caption "Schedule an Event Reminder..."
-			     :buttons '((:submit . "Submit")))
+			     :buttons '((:submit . "Submit")) :persistp nil)
   (send-as :present-as (dropdown :choices '(("An email and a text." . :both)
 					    ("Just an e-mail." . :email)
 					    ("Just a text." . :text))
@@ -47,8 +47,8 @@
   (email :satisfies #'valid-email)
   (cell-number :satisfies #'valid-cell-number)
   (cell-carrier :present-as (dropdown :choices *sms-gateways*))
-  (event-date :present-as (calendar)
-	      :requiredp t)
+  (event-date :present-as (calendar) :parse-as (calendar))
+;	      :requiredp t)
   (event-hour :present-as (dropdown :choices *hour-choices*)
 	      :requiredp t)
   (event-minute :present-as (dropdown :choices   '(("00" . 0)
@@ -75,11 +75,13 @@
 
 (defun valid-email (user-input)
   ;; Ensure that there is an @ and a . and input not containing @s before after each.
-  (cl-ppcre:scan "^[^@]+@[^@]+\.[^@]+$" user-input))
+  (or (cl-ppcre:scan "^[^@]+@[^@]+\\.[^@]+$" user-input)
+      (values nil "Your email must have an @, a . and text before and after both.")))
 
 (defun valid-cell-number (user-input)
   ;; Ensure that only numbers are given and there are at least 7.
-  (cl-ppcre:scan "^[0-9]{7,}$" user-input))
+  (or (cl-ppcre:scan "^[0-9]{10,}$" user-input)
+      (values nil "Your number must have only numbers and at least 10 of them.")))
 
 (defun get-emails (form-data)
   (with-slots (send-as email cell-number cell-carrier) form-data
@@ -90,3 +92,16 @@
 	    ((string= send-as "EMAIL") (list email))
 	    ((string= send-as "TEXT") (list sms-mail))))))
 
+(defun get-timestamps (form-data)
+  (with-slots (event-date event-hour event-minute
+	       remind-me timezone) form-data
+    (let* ((hour (parse-integer event-hour))
+	   (minute (parse-integer event-minute))
+	   (secs-before (parse-integer remind-me))
+	   (timezone (parse-integer timezone))
+	   (day (first event-date))
+	   (month (second event-date))
+	   (year (third event-date))
+	   (event-time (encode-timestamp 0 0 minute hour day month year :offset timezone)))
+      (list event-time
+	    (timestamp- event-time remind-me :sec)))))
