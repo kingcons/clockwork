@@ -21,5 +21,6 @@
 		  :components ((:file "init-session")
 			       (:file "calendar")
 			       (:file "messaging")
-			       (:file "reminder"))
+			       (:file "reminder"
+				:depends-on ("messaging")))
 		  :depends-on ("clockwork" conf))))
