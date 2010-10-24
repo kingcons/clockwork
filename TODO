@@ -22,7 +22,6 @@ Phase3: MAKE IT MO FEATUROUS!
 -- This shouldn't happen but are we sure things are resilient to system clock changes? trivial-timers issue?
 Phase4: MAKE IT MO ROBUSTERFIED!
 -- Recover-reminders.
--- Write :satisfies stuff for the view/form bits.
 
 OPTIONALS:
 Use the string-list and style types to make reminder class stricter?

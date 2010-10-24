@@ -44,10 +44,11 @@
 					    ("Just a text." . :text))
 				 :welcome-name "How to send it")
 	   :requiredp t)
-  (email)
-  (cell-number)
+  (email :satisfies #'valid-email)
+  (cell-number :satisfies #'valid-cell-number)
   (cell-carrier :present-as (dropdown :choices *sms-gateways*))
-  (event-date :present-as (calendar) :requiredp t)
+  (event-date :present-as (calendar)
+	      :requiredp t)
   (event-hour :present-as (dropdown :choices *hour-choices*)
 	      :requiredp t)
   (event-minute :present-as (dropdown :choices   '(("00" . 0)
@@ -70,18 +71,22 @@
 	     :requiredp t)
   (subject :requiredp t)
   (summary :present-as (textarea :rows 5))
-  (honeypot :label "Leave this blank"))
+  (honeypot :label "Leave this blank" :satisfies #'null))
+
+(defun valid-email (user-input)
+  ;; Ensure that there is an @ and a . and input not containing @s before after each.
+  (cl-ppcre:scan "^[^@]+@[^@]+\.[^@]+$" user-input))
+
+(defun valid-cell-number (user-input)
+  ;; Ensure that only numbers are given and there are at least 7.
+  (cl-ppcre:scan "^[0-9]{7,}$" user-input))
 
 (defun get-emails (form-data)
   (with-slots (send-as email cell-number cell-carrier) form-data
     (let ((sms-mail (concatenate 'string cell-number "@" cell-carrier)))
-      (ecase send-as
-	(:both (list email sms-mail))
-	(:email (list email))
-	(:text (list sms-mail))))))
+      ;; this was an ecase with keywords but the kws get converted to
+      ;; strings somewhere in form submission
+      (cond ((string= send-as "BOTH") (list email sms-mail))
+	    ((string= send-as "EMAIL") (list email))
+	    ((string= send-as "TEXT") (list sms-mail))))))
 
-(defun get-reminder-time (form-data)
-  ())
-
-(defun get-event-time (form-data)
-  ())
