@@ -74,12 +74,12 @@
   (honeypot :label "Leave this blank" :satisfies #'null))
 
 (defun valid-email (user-input)
-  ;; Ensure that there is an @ and a . and input not containing @s before after each.
+  "Ensure that there is an @ and a . and input not containing @s before and after each."
   (or (cl-ppcre:scan "^[^@]+@[^@]+\\.[^@]+$" user-input)
       (values nil "Your email must have an @, a . and text before and after both.")))
 
 (defun valid-cell-number (user-input)
-  ;; Ensure that only numbers are given and there are at least 7.
+  "Ensure that only numbers are given and there are at least 10."
   (or (cl-ppcre:scan "^[0-9]{10,}$" user-input)
       (values nil "Your number must have only numbers and at least 10 of them.")))
 

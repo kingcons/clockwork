@@ -5,7 +5,7 @@
 (defmacro with-encrypted-smtp ((&key to subject style
 			       (from "cl.ockwork.webdev@gmail.com"))
 			       &body body)
-  `(cl-smtp:send-email ,+mail-server+ ,from ,to ,subject
+  `(cl-smtp:send-email ,*mail-server* ,from ,to ,subject
 		       (if (eql ,style :html)
 			   (with-html ,@body) ;; TODO: make a nicer render style
 			   ,@body)
