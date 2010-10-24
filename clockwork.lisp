@@ -28,7 +28,8 @@
     :hostnames '("clockwork.redlinernotes.com")
     :dependencies '((:stylesheet "jquery-ui")
 		    (:script "jquery.min")
-		    (:script "jquery-ui.min"))
+		    (:script "jquery-ui.min")
+		    (:script "noconflict"))
     :debug t
     )
 

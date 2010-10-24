@@ -23,13 +23,6 @@
 	     (ps:ps ($jquery (lambda ()
 			 (ps:chain ($jquery "#event-date") (datepicker))))))))))
 
-;; WARNING: EVIL HACK TERRITORY!
-;; Note that we had to reverse the order of render-page-headers and the mapc call
-;; in weblocks render-page function for this to work.
-(defmethod render-page-headers ((app clockwork))
-   (with-html
-     (:script "var $jquery = jQuery.noConflict();")))
-
 ;; parser
 (defclass calendar-parser (text-parser)
   ())
@@ -37,19 +30,17 @@
 (defmethod parse-view-field-value ((parser calendar-parser) value obj
                                    (view form-view) (field form-view-field) &rest args)
   (declare (ignore args))
-  (if (text-parser-matches parser)
-      (when (ppcre:all-matches (text-parser-matches parser) value)
-        (values t (text-input-present-p value) (alex-date-string-yui value)))
-      (values t (text-input-present-p value) (alex-date-string-yui value) )))
+  (setf *calendar-val* value)
+  (values t (text-input-present-p value) value))
 
-(defun alex-date-string-yui   (yuistr)
+(defun alex-date-string-yui (yuistr)
   "Takes yui calendar string and normalizes it"
   (multiple-value-bind (lst x)
       (read-date-from yuistr (the-year))
     (let ((day (nth 1 lst))
-	    (month (nth 0 lst))
-	    (year  (nth 2 lst)))
-      (format nil "~2,'0d/~2,'0D/~2,'0D"  day month (last-two year) ))))
+	  (month (nth 0 lst))
+	  (year  (nth 2 lst)))
+      (format nil "~2,'0d/~2,'0D/~2,'0D"  day month (last-two year)))))
 
 ; Parser from metatilities, adjusted to use :d :m :y
 (defun read-date-from (string &optional default-year)
