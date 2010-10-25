@@ -18,9 +18,12 @@
 			       (:file "confidential"))
 		  :depends-on ("clockwork"))
 		 (:module src
-		  :components ((:file "init-session")
-			       (:file "calendar")
+		  :components ((:file "calendar")
 			       (:file "messaging")
 			       (:file "reminder"
-				:depends-on ("messaging")))
+				      :depends-on ("messaging"))
+			       (:file "forms"
+				      :depends-on ("messaging" "calendar"))
+			       (:file "init-session"
+				      :depends-on ("reminder" "forms")))
 		  :depends-on ("clockwork" conf))))

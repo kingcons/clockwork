@@ -44,11 +44,11 @@
 					    ("Just a text." . :text))
 				 :welcome-name "How to send it")
 	   :requiredp t)
-  (email :satisfies #'valid-email)
-  (cell-number :satisfies #'valid-cell-number)
+  (email :satisfies 'valid-email)
+  (cell-number :satisfies 'valid-cell-number)
   (cell-carrier :present-as (dropdown :choices *sms-gateways*))
-  (event-date :present-as (calendar) :parse-as (calendar))
-;	      :requiredp t)
+  (event-date :present-as (calendar) :parse-as (calendar)
+	      :requiredp nil)
   (event-hour :present-as (dropdown :choices *hour-choices*)
 	      :requiredp t)
   (event-minute :present-as (dropdown :choices   '(("00" . 0)
@@ -86,8 +86,8 @@
 (defun get-emails (form-data)
   (with-slots (send-as email cell-number cell-carrier) form-data
     (let ((sms-mail (concatenate 'string cell-number "@" cell-carrier)))
-      ;; this was an ecase with keywords but the kws get converted to
-      ;; strings somewhere in form submission
+      ;; this was an ecase with keywords but weblocks converts
+      ;; the keywords to strings somewhere in form submission
       (cond ((string= send-as "BOTH") (list email sms-mail))
 	    ((string= send-as "EMAIL") (list email))
 	    ((string= send-as "TEXT") (list sms-mail))))))
