@@ -1,18 +1,18 @@
 TODO:
+Rewrite using new form-widget stuff.
+-- Once send method is selected form changes to have the appropriate fields via AJAX.
 Fixup:
--- Event-date is returning nil. Finish the calendar parser to return '(day month year).
+Calendar presentation needs some CSS help because you can't see the next/prev month buttons.
+Event-date is returning nil. Finish the calendar parser to return '(day month year).
 TEST IT!
 Contact us? (just a mailto:cl.ockwork.webdev@gmail.com maybe rather than a whole form...)
-Add a Readme file (markdown?) that points to the CL Web Primer 1 article 
-and mentions the need to add conf/confidential.lisp with a valid gmail email+pass.
+Add a Readme file (markdown?) that points to the CL Web Primer 1 article and mentions the need to add conf/confidential.lisp with a valid gmail email+pass.
 
 REMINDERS:
 -- Note that we assume users will input the remind-date in the same timezone as the event-date. Remind them?
 -- Remind users in the view that 160+ character messages will be split into several text messages and billed separately.
 
 Phase2: MAKE IT MO PRETTIFUL!
--- Rewrite using new form-widget stuff.
----- Once send method is selected form changes to have the appropriate fields via AJAX.
 -- Use CSS for labelless, side by side dropdowns for the time.
 -- Clockwork art deco logo by one of my art friends?
 -- Flesh out the homepage. About your data privacy? Reminder Successfully scheduled overlay/lightbox-ish-thing?
