@@ -15,7 +15,7 @@
     :components ((:file "clockwork")
 		 (:module conf
 		  :components ((:file "stores")
-			       (:file "confidential"))
+			       (:file "config"))
 		  :depends-on ("clockwork"))
 		 (:module src
 		  :components ((:file "calendar")

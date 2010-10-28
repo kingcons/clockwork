@@ -1,4 +1,4 @@
 *.fasl
 *~
-confidential.lisp
 data/*
+config.lisp
