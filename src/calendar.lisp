@@ -11,16 +11,16 @@
 
 (defmethod render-field-contents ((form form-widget) (field calendar-field-widget))
   (with-html
-    (:input :type "hidden" :id (name-of field))
+    (:input :type "hidden" :name (name-of field))
     (:div :id "datepicker"
 	  (send-script
 	   (ps:ps
 	     ($jquery (lambda ()
 			(ps:chain ($jquery "#datepicker")
 				  (datepicker
-				   (ps:create date-format "dd-mm-yyyy"
-					      on-select (lambda (date obj)
-							  (ps:chain ($jquery "#event-date")
+				   (ps:create date-format "dd-mm-yy"
+					      on-select (lambda (date inst)
+							  (ps:chain ($jquery "[name=event-date]")
 								    (val date)))))))))))))
 
 ;; calendar presentation
@@ -34,5 +34,4 @@
 (defmethod parse-view-field-value ((parser calendar-parser) value obj
                                    (view form-view) (field form-view-field) &rest args)
   (declare (ignore args))
-  (setf *calendar-val* (list value field (text-input-present-p value) obj))
   (values t (text-input-present-p value) value))
