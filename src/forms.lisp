@@ -39,6 +39,10 @@
 
 (defview reminder-form-view (:type form :caption "Schedule an Event Reminder..."
 			     :buttons '((:submit . "Submit")) :persistp nil)
+;  (logo :present-as (image :title "Clockwork Logo"
+;			   :width 800
+;			   :height 200
+;			   :url-default "pub/images/clockwork_logo.jpeg"))
   (send-as :present-as (dropdown :choices '(("An email and a text." . :both)
 					    ("Just an e-mail." . :email)
 					    ("Just a text." . :text))
@@ -48,7 +52,7 @@
   (cell-number :satisfies 'valid-cell-number)
   (cell-carrier :present-as (dropdown :choices *sms-gateways*))
   (event-date :present-as (calendar) :parse-as (calendar)
-	      :requiredp nil)
+	      :requiredp t)
   (event-hour :present-as (dropdown :choices *hour-choices*)
 	      :requiredp t)
   (event-minute :present-as (dropdown :choices   '(("00" . 0)
@@ -97,11 +101,12 @@
 	       remind-me timezone) form-data
     (let* ((hour (parse-integer event-hour))
 	   (minute (parse-integer event-minute))
-	   (secs-before (parse-integer remind-me))
+	   (reminder-time-period (parse-integer remind-me))
 	   (timezone (parse-integer timezone))
-	   (day (first event-date))
-	   (month (second event-date))
-	   (year (third event-date))
+	   (datestring (split-sequence #\- event-date))
+	   (day (parse-integer (first datestring)))
+	   (month (parse-integer (second datestring)))
+	   (year (parse-integer (third datestring)))
 	   (event-time (encode-timestamp 0 0 minute hour day month year :offset timezone)))
       (list event-time
-	    (timestamp- event-time remind-me :sec)))))
+	    (timestamp- event-time reminder-time-period :sec)))))
