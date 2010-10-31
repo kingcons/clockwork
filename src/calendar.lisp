@@ -1,5 +1,18 @@
 (in-package :clockwork)
 
+;; calendar presentation
+(defclass calendar-presentation (input-presentation)
+  ())
+
+;; calendar parser
+(defclass calendar-parser (text-parser)
+  ())
+
+(defmethod parse-view-field-value ((parser calendar-parser) value obj
+                                   (view form-view) (field form-view-field) &rest args)
+  (declare (ignore args))
+  (values t (text-input-present-p value) value))
+
 ;; calendar form-widget code
 (define-widget calendar-field-widget (field-widget)
   ()
@@ -22,16 +35,3 @@
 					      on-select (lambda (date inst)
 							  (ps:chain ($jquery "[name=event-date]")
 								    (val date)))))))))))))
-
-;; calendar presentation
-(defclass calendar-presentation (input-presentation)
-  ())
-
-;; calendar parser
-(defclass calendar-parser (text-parser)
-  ())
-
-(defmethod parse-view-field-value ((parser calendar-parser) value obj
-                                   (view form-view) (field form-view-field) &rest args)
-  (declare (ignore args))
-  (values t (text-input-present-p value) value))
