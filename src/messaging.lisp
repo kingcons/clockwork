@@ -20,11 +20,14 @@
 (defparameter *sms-gateways*
   ;; list is derived from http://en.wikipedia.org/wiki/List_of_SMS_gateways
   '(("AT&T/Cingular" . "txt.att.net")
+    ("Alltel" . "text.wireless.alltel.com")
     ("Boost Mobile" . "myboostmobile.com")
+    ("Cincinatti Wireless" . "gocbw.com")
     ("MetroPCS" . "mymetropcs.com")
     ("Sprint/PCS" . "messaging.sprintpcs.com")
     ("Sprint/Nextel" ."page.nextel.com")
     ("T-Mobile" . "tmomail.net")
+    ("US Cellular" . "email.uscc.net")
     ("Verizon" . "vtext.com")
     ("Virgin Mobile" . "vmobl.com")))
 

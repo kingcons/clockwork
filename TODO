@@ -1,4 +1,11 @@
 TODO:
+There's really no need for the with-encrypted-smtp macro. Replace with a function?
+Create timestamps during validation and check with :satisfies that reminder is after (local-time:now)?
+Ensure calendar defaults to date of today. Shouldn't need to click if they want today's date.
+-- Provide fallback textfield if they don't use JS?
+---- :Satisfies function needed in this case, too. "dd-mm-yyyy"
+------ Regex OR split-sequence, then count elements and ensure each parses as
+------ ints less than 32 and 13 and 9999, respectively. Check length 10 too?
 Figure out why the on-success function isn't firing.
 -- Once send method is selected form changes to have the appropriate fields via AJAX.
 -- Ensure that if a field isn't required, its validation (i.e. :satisfies) is only run when there is input.
