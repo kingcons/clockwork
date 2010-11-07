@@ -35,13 +35,12 @@
 			      :style (if (sms-mail-p email)
 					 :plain
 					 :html))
-      (reminder-summary reminder))
-    (delete-persistent-object-by-id *default-store*
-	   'reminder (reminder-id reminder))))
+      (reminder-summary reminder)))
+  (delete-persistent-object-by-id *default-store* 'reminder (reminder-id reminder)))
 
 (defmethod schedule-reminder ((reminder reminder))
   (let ((secs-until-reminder (round (local-time:timestamp-difference (reminder-at reminder) (now)))))
     (trivial-timers:schedule-timer
      (trivial-timers:make-timer (lambda ()
-				  (send-and-delete reminder)))
+				  (send-and-delete reminder)) :thread t)
      secs-until-reminder)))
