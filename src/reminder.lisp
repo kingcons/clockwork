@@ -30,20 +30,18 @@
   (:documentation "Send the user their reminder as requested and then remove it from the datastore."))
 
 (defmethod send-and-delete ((reminder reminder))
-  (with-slots (emails title summary id) reminder
-    (loop for email in emails do
-	 (with-encrypted-smtp (:to email :subject title
-			       :style (if (sms-mail-p email)
-					  :plain
-					  :html))
-	   summary)
-	 (delete-persistent-object-by-id *default-store* 'reminder id))))
+  (loop for email in (reminder-emails reminder) do
+    (with-encrypted-smtp (:to email :subject (reminder-title reminder)
+			      :style (if (sms-mail-p email)
+					 :plain
+					 :html))
+      (reminder-summary reminder))
+    (delete-persistent-object-by-id *default-store*
+	   'reminder (reminder-id reminder))))
 
 (defmethod schedule-reminder ((reminder reminder))
-  (with-slots (at) reminder
-    (let ((secs-until-reminder
-	   (round (local-time:timestamp-difference at (now)))))
-      (trivial-timers:schedule-timer
-       (trivial-timers:make-timer (lambda (reminder)
-				    (send-and-delete reminder)))
-       secs-until-reminder))))
+  (let ((secs-until-reminder (round (local-time:timestamp-difference (reminder-at reminder) (now)))))
+    (trivial-timers:schedule-timer
+     (trivial-timers:make-timer (lambda ()
+				  (send-and-delete reminder)))
+     secs-until-reminder)))

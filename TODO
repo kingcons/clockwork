@@ -1,6 +1,7 @@
 TODO:
 There's really no need for the with-encrypted-smtp macro. Replace with a function?
 Create timestamps during validation and check with :satisfies that reminder is after (local-time:now)?
+Add row and column support to textarea presentation.
 Ensure calendar defaults to date of today. Shouldn't need to click if they want today's date.
 -- Provide fallback textfield if they don't use JS?
 ---- :Satisfies function needed in this case, too. "dd-mm-yyyy"

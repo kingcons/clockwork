@@ -39,10 +39,6 @@
 
 (defview reminder-form-view (:type form :caption "Schedule an Event Reminder..."
 			     :buttons '((:submit . "Submit")) :persistp nil)
-;  (logo :present-as (image :title "Clockwork Logo"
-;			   :width 800
-;			   :height 200
-;			   :url-default "pub/images/clockwork_logo.jpeg"))
   (send-as :present-as (dropdown :choices '(("An email and a text." . :both)
 					    ("Just an e-mail." . :email)
 					    ("Just a text." . :text))
@@ -88,7 +84,7 @@
       (values nil "Your number must have only numbers and at least 10 of them.")))
 
 (defun get-emails (form-data)
-  (with-slots (send-as email cell-number cell-carrier) form-data
+  (with-form-values (send-as email cell-number cell-carrier) form-data
     (let ((sms-mail (concatenate 'string cell-number "@" cell-carrier)))
       ;; this was an ecase with keywords but weblocks converts
       ;; the keywords to strings somewhere in form submission
@@ -97,8 +93,8 @@
 	    ((string= send-as "TEXT") (list sms-mail))))))
 
 (defun get-timestamps (form-data)
-  (with-slots (event-date event-hour event-minute
-	       remind-me timezone) form-data
+  (with-form-values (event-date event-hour event-minute
+		     remind-me timezone) form-data
     (let* ((hour (parse-integer event-hour))
 	   (minute (parse-integer event-minute))
 	   (reminder-time-period (parse-integer remind-me))
