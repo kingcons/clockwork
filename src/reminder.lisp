@@ -9,20 +9,20 @@
 ;       (every (lambda (el) (member el :plaintext :html)) arg)))
 
 (defclass reminder ()
-  ((id) ;; all classes to be persisted with cl-prevalence need an id slot
-   (emails :accessor reminder-emails
+  ((id :reader reminder-id) ;; all classes to be persisted with cl-prevalence need an id slot
+   (emails :reader reminder-emails
 	   :initarg :emails
 	   :type list)
-   (title :accessor reminder-title
+   (title :reader reminder-title
 	  :initarg :title
 	  :type string)
-   (timestamp :accessor reminder-timestamp
+   (timestamp :reader reminder-timestamp
 	      :initarg :timestamp
 	      :type timestamp)
-   (summary :accessor reminder-summary
+   (summary :reader reminder-summary
 	    :initarg :summary
 	    :type string)
-   (at :accessor reminder-at
+   (at :reader reminder-at
        :initarg :at
        :type timestamp)))
 

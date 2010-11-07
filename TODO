@@ -1,19 +1,7 @@
 TODO:
-There's really no need for the with-encrypted-smtp macro. Replace with a function?
-Create timestamps during validation and check with :satisfies that reminder is after (local-time:now)?
 Add row and column support to textarea presentation.
-Ensure calendar defaults to date of today. Shouldn't need to click if they want today's date.
--- Provide fallback textfield if they don't use JS?
----- :Satisfies function needed in this case, too. "dd-mm-yyyy"
------- Regex OR split-sequence, then count elements and ensure each parses as
------- ints less than 32 and 13 and 9999, respectively. Check length 10 too?
-Figure out why the on-success function isn't firing.
--- Once send method is selected form changes to have the appropriate fields via AJAX.
--- Ensure that if a field isn't required, its validation (i.e. :satisfies) is only run when there is input.
-Calendar presentation needs some CSS help because you can't see the next/prev month buttons.
-TEST IT!
 Contact us? (just a mailto:cl.ockwork.webdev@gmail.com maybe rather than a whole form...)
-Add a Readme file (markdown?) that points to the CL Web Primer 1 article and mentions the need to add conf/confidential.lisp with a valid gmail email+pass.
+Add a Readme file (markdown?) that points to the CL Web Primer 1 article and mentions the need to add conf/config.lisp with a valid gmail email+pass.
 -- The Readme should have a note about git update-index --assume-unchanged...
 
 REMINDERS:
@@ -22,10 +10,19 @@ REMINDERS:
 
 Phase2: MAKE IT MO PRETTIFUL!
 -- Use CSS for labelless, side by side dropdowns for the time.
--- Clockwork art deco logo by one of my art friends?
--- Flesh out the homepage. About your data privacy? Reminder Successfully scheduled overlay/lightbox-ish-thing?
+-- Clockwork art deco logo by Neil Miller.
+-- Flesh out the homepage. Talk about data privacy.
+-- Overlay/lightbox-ish-thing on successful form submission to inform user.
+-- Calendar presentation needs some CSS help because you can't see the next/prev month buttons.
+-- Once send method is selected form changes to have the appropriate fields via AJAX.
 Phase3: MAKE IT MO ROBUSTERFIED!
 -- Recover-reminders.
+-- Create timestamps during validation and check with :satisfies that reminder is after (local-time:now)?
+-- Ensure calendar defaults to date of today. Shouldn't need to click if they want today's date.
+-- Provide fallback textfield if they don't use JS.
+---- :Satisfies function needed in this case, too. "dd-mm-yyyy"
+------ Regex OR split-sequence, then count elements and ensure each parses as
+------ ints less than 32 and 13 and 9999, respectively. Check length 10 too?
 Phase4: MAKE IT MO FEATUROUS!
 -- Confirmation email with link to delete reminders?
 -- Add support for repeating events? (Daily,Weekly,Monthly,Yearly?)
@@ -33,4 +30,4 @@ Phase4: MAKE IT MO FEATUROUS!
 
 OPTIONALS:
 Use the string-list and style types to make reminder class stricter?
-
+There's really no need for the with-encrypted-smtp macro. Replace with a function?
