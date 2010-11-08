@@ -1,37 +1,37 @@
 (in-package :clockwork)
 
 (defparameter *timezones*
-  '(("UTC-12:00" . -43200) ; Eniwetok, Kwajalein
-    ("UTC-11:00" . -39600) ; Midway Island, Samoa
-    ("UTC-10:00" . -36000) ; Hawaii
-    ("UTC-09:00" . -32400) ; Alaska
-    ("UTC-08:00" . -28800) ; Pacific Time (US and Canada)
-    ("UTC-07:00" . -25200) ; Mountain Time (US and Canada)
-    ("UTC-06:00" . -21600) ; Central Time (US and Canada)
-    ("UTC-05:00" . -18000) ; Eastern Time (US and Canada)
-    ("UTC-04:00" . -14400) ; Atlantic Time (Canada), Caracas, La Paz
-    ("UTC-03:30" . -12600) ; Newfoundland
-    ("UTC-03:00" . -10800) ; Brazil, Buenos Aires, Georgetown
-    ("UTC-02:00" . -7200) ; Mid-Atlantic
-    ("UTC-01:00" . -3600) ; Azores, Cape Verde Islands
-    ("UTC+00:00" . 0) ; London, Lisbon, Casablanca
-    ("UTC+01:00" . 3600) ; Berlin, Brussels, Copenhagen, Madrid, Paris
-    ("UTC+02:00" . 7200) ; Kaliningrad, South Africa
-    ("UTC+03:00" . 10800) ; Baghdad, Riyadh, Moscow, St. Petersburg
-    ("UTC+03:30" . 12600) ; Tehran
-    ("UTC+04:00" . 14400) ; Abu Dhabi, Muscat, Baku, Tbilisi
-    ("UTC+04:30" . 16200) ; Kabul
-    ("UTC+05:00" . 18000) ; Ekaterinburg, Islamabad, Karachi, Tashkent
-    ("UTC+05:30" . 19800) ; Bombay, Calcutta, Madras, New Delhi
-    ("UTC+05:45" . 20700) ; Kathmandu
-    ("UTC+06:00" . 21600) ; Almaty, Dhaka, Colombo
-    ("UTC+07:00" . 25200) ; Bangkok, Hanoi, Jakarta
-    ("UTC+08:00" . 28800) ; Beijing, Perth, Singapore, Hong Kong
-    ("UTC+09:00" . 32400) ; Tokyo, Seoul, Osaka, Sapporo, Yakutsk
-    ("UTC+09:30" . 34200) ; Adelaide, Darwin
-    ("UTC+10:00" . 36000) ; Eastern Australia, Guam, Vladivostok
-    ("UTC+11:00" . 39600) ; Magadan, Solomon Islands, New Caledonia
-    ("UTC+12:00". 43200))) ; Auckland, Wellington, Fiji, Kamchatka
+  '(("UTC-12:00 (Eniwetok, Kwajalein)" . -43200)
+    ("UTC-11:00 (Midway Island, Samoa)" . -39600)
+    ("UTC-10:00 (Hawaii)" . -36000)
+    ("UTC-09:00 (Alaska)" . -32400)
+    ("UTC-08:00 (Pacific Time)" . -28800)
+    ("UTC-07:00 (Mountain Time)" . -25200)
+    ("UTC-06:00 (Central Time)" . -21600)
+    ("UTC-05:00 (Eastern Time)" . -18000)
+    ("UTC-04:00 (Atlantic Time, Caracas)" . -14400)
+    ("UTC-03:30 (Newfoundland)" . -12600)
+    ("UTC-03:00 (Brazil, Buenos Aires, Georgetown)" . -10800)
+    ("UTC-02:00 (Mid-Atlantic)" . -7200)
+    ("UTC-01:00 (Azores, Cape Verde Islands)" . -3600)
+    ("UTC+00:00 (Lisbon, London, Casablanca)" . 0)
+    ("UTC+01:00 (Berlin, Brussels, Copenhagen, Madrid, Paris)" . 3600)
+    ("UTC+02:00 (Kaliningrad, South Africa)" . 7200)
+    ("UTC+03:00 (Baghdad, Moscow, Riyadh, St. Petersburg)" . 10800)
+    ("UTC+03:30 (Tehran)" . 12600)
+    ("UTC+04:00 (Abu Dhabi, Baku, Muscat, Tbilisi)" . 14400)
+    ("UTC+04:30 (Kabul)" . 16200)
+    ("UTC+05:00 (Ekaterinburg, Islamabad, Karachi, Tashkent)" . 18000)
+    ("UTC+05:30 (Bombay, Calcutta, Madras, New Delhi)" . 19800)
+    ("UTC+05:45 (Kathmandu)" . 20700)
+    ("UTC+06:00 (Almaty, Colombo, Dhaka)" . 21600)
+    ("UTC+07:00 (Bangkok, Hanoi, Jakarta)" . 25200)
+    ("UTC+08:00 (Beijing, Hong Kong, Perth, Singapore)" . 28800)
+    ("UTC+09:00 (Osaka, Seoul, Sapporo, Tokyo, Yakutsk)" . 32400)
+    ("UTC+09:30 (Adelaide, Darwin)" . 34200)
+    ("UTC+10:00 (Eastern Australia, Guam, Vladivostok)" . 36000)
+    ("UTC+11:00 (Magadan, New Caledonia, Solomon Islands)" . 39600)
+    ("UTC+12:00 (Auckland, Fiji, Kamchatka, Wellington)". 43200)))
 
 (defparameter *hour-choices*
   (loop for i from 0 to 23
