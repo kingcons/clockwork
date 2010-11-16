@@ -5,6 +5,12 @@
   (setf (widget-children root)
 	(make-reminder-form)))
 
+;; (defmethod render-widget :before ((content form-widget) &rest args)
+;;   (declare (ignore args))
+;;   (with-html
+;;     (:div :id "site-banner")
+;;     (:img :src "/pub/images/clockwork_logo.jpg")))
+
 (defun make-reminder-form ()
   (let ((reminder-form (make-instance 'form-widget :on-success 'submit-reminder-form)))
     (form-widget-initialize-from-view reminder-form 'reminder-form-view)
@@ -12,7 +18,7 @@
 
 (defun submit-reminder-form (widget)
   (let ((new-reminder (create-reminder widget)))
-    (schedule-reminder new-reminder)
+    (schedule new-reminder)
     (persist-object *default-store* new-reminder)))
 
 (defun create-reminder (form-data)

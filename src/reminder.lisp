@@ -38,7 +38,10 @@
       (reminder-summary reminder)))
   (delete-persistent-object-by-id *default-store* 'reminder (reminder-id reminder)))
 
-(defmethod schedule-reminder ((reminder reminder))
+(defgeneric schedule (reminder)
+  (:documentation "Schedule the reminder to be sent at the time the user requested."))
+
+(defmethod schedule ((reminder reminder))
   (let ((secs-until-reminder (round (timestamp-difference (reminder-at reminder) (now)))))
     (trivial-timers:schedule-timer
      (trivial-timers:make-timer (lambda ()
