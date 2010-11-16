@@ -39,7 +39,7 @@
   (delete-persistent-object-by-id *default-store* 'reminder (reminder-id reminder)))
 
 (defmethod schedule-reminder ((reminder reminder))
-  (let ((secs-until-reminder (round (local-time:timestamp-difference (reminder-at reminder) (now)))))
+  (let ((secs-until-reminder (round (timestamp-difference (reminder-at reminder) (now)))))
     (trivial-timers:schedule-timer
      (trivial-timers:make-timer (lambda ()
 				  (send-and-delete reminder)) :thread t)

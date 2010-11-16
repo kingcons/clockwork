@@ -1,5 +1,7 @@
 TODO:
 Add row and column support to textarea presentation.
+Add some simple logging for submissions, sends and deletions?
+Import make-timer and schedule-timer in defpackage?
 Contact us? (just a mailto:cl.ockwork.webdev@gmail.com maybe rather than a whole form...)
 Add a Readme file (markdown?) that points to the CL Web Primer 1 article and mentions the need to add conf/config.lisp with a valid gmail email+pass.
 -- The Readme should have a note about git update-index --assume-unchanged...
