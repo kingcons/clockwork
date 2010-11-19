@@ -36,14 +36,19 @@
 					 :plain
 					 :html))
       (reminder-summary reminder)))
-  (delete-persistent-object-by-id *default-store* 'reminder (reminder-id reminder)))
+  (delete-persistent-object-by-id *clockwork-store* 'reminder (reminder-id reminder)))
 
 (defgeneric schedule (reminder)
   (:documentation "Schedule the reminder to be sent at the time the user requested."))
 
 (defmethod schedule ((reminder reminder))
   (let ((secs-until-reminder (round (timestamp-difference (reminder-at reminder) (now)))))
-    (trivial-timers:schedule-timer
-     (trivial-timers:make-timer (lambda ()
+    (schedule-timer (make-timer (lambda ()
 				  (send-and-delete reminder)) :thread t)
-     secs-until-reminder)))
+		    secs-until-reminder)))
+
+(defun recover-reminders ()
+  "A function to reschedule reminders after a reboot. Based on testing,
+any that expired during the reboot will be sent when the schedule method is called.
+Better late than never, right?"
+  (mapcar #'schedule (find-persistent-objects *clockwork-store* 'reminder)))

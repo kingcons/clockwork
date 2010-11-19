@@ -8,8 +8,8 @@
 (defmethod render-widget :before ((content form-widget) &rest args)
   (declare (ignore args))
   (with-html
-    (:div :id "site-banner")
-    (:img :src "/pub/images/clockwork_logo.jpg")))
+    (:div :id "site-banner"
+	  (:img :src "/pub/images/clockwork_logo.jpg"))))
 
 (defun make-reminder-form ()
   (let ((reminder-form (make-instance 'form-widget :on-success 'submit-reminder-form)))

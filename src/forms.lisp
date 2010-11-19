@@ -59,6 +59,8 @@
   (timezone :present-as (dropdown :choices *timezones*)
 	    :requiredp t)
   (remind-me :present-as (dropdown :choices '(("At the event" . 0)
+					      ("5 minutes before" . 300)
+					      ("10 minutes before" . 600)
 					      ("15 minutes before" . 900)
 					      ("30 minutes before" . 1800)
 					      ("45 minutes before" . 2700)

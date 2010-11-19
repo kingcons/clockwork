@@ -1,22 +1,18 @@
 TODO:
 Add row and column support to textarea presentation.
-Add some simple logging for submissions, sends and deletions?
-Import make-timer and schedule-timer in defpackage?
-Contact us? (just a mailto:cl.ockwork.webdev@gmail.com maybe rather than a whole form...)
-Add a Readme file (markdown?) that points to the CL Web Primer 1 article and mentions the need to add conf/config.lisp with a valid gmail email+pass.
--- The Readme should have a note about git update-index --assume-unchanged...
 
 REMINDERS:
 -- Remind users in the view that 160+ character messages will be split into several text messages and billed separately?
 
 Phase2: MAKE IT MO PRETTIFUL!
+-- Kill the session/refresh the form after submission.
 -- Use CSS for labelless, side by side dropdowns for the time.
--- Flesh out the homepage. Talk about data privacy.
+-- Flesh out the homepage. Talk about data privacy. Contact us? (just a mailto:cl.ockwork.webdev@gmail.com or overlay form?)
 -- Overlay/lightbox-ish-thing on successful form submission to inform user.
 -- Calendar presentation needs some CSS help because you can't see the next/prev month buttons.
 -- Once send method is selected form changes to have the appropriate fields via AJAX.
 Phase3: MAKE IT MO ROBUSTERFIED!
--- Recover-reminders.
+-- What about network failures during send-email? Handle it!
 -- Create timestamps during validation and check with :satisfies that reminder is after (local-time:now)?
 -- Provide fallback textfield if they don't use JS.
 ---- :Satisfies function needed in this case, too. "dd-mm-yyyy"
@@ -25,7 +21,10 @@ Phase3: MAKE IT MO ROBUSTERFIED!
 Phase4: MAKE IT MO FEATUROUS!
 -- Confirmation email with link to delete reminders?
 -- Add support for repeating events? (Daily,Weekly,Monthly,Yearly?)
--- This shouldn't happen but are we sure things are resilient to system clock changes? trivial-timers issue?
+-- This shouldn't happen but are we sure things are resilient to system clock changes?
+Add some simple logging for submissions, sends and deletions?
+Add a Readme file (markdown?) that points to the CL Web Primer 1 article and mentions the need to add conf/config.lisp with a valid gmail email+pass.
+-- The Readme should have a note about git update-index --assume-unchanged for the config file and also a note about calling recover-reminders in init.lisp.
 
 OPTIONALS:
 Use the string-list and style types to make reminder class stricter?

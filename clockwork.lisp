@@ -10,6 +10,9 @@
 		#:referer)
   (:import-from :split-sequence
 		#:split-sequence)
+  (:import-from :trivial-timers
+		#:make-timer
+		#:schedule-timer)
   (:export #:start-clockwork
 	   #:stop-clockwork)
   (:documentation
