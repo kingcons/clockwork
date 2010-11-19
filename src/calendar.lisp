@@ -24,7 +24,7 @@
 
 (defmethod render-field-contents ((form form-widget) (field calendar-field-widget))
   (with-html
-    (:input :type "hidden" :name (name-of field))
+    (:input :type "hidden" :name (name-of field) :value (datestring))
     (:div :id "datepicker"
 	  (send-script
 	   (ps:ps
@@ -35,3 +35,6 @@
 					      on-select (lambda (date inst)
 							  (ps:chain ($jquery "[name=event-date]")
 								    (val date)))))))))))))
+
+(defun datestring ()
+  (subseq (format-timestring nil (now) :format '(:day "-" :month "-" :year)) 0 10))

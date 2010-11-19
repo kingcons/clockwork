@@ -7,12 +7,10 @@ Add a Readme file (markdown?) that points to the CL Web Primer 1 article and men
 -- The Readme should have a note about git update-index --assume-unchanged...
 
 REMINDERS:
--- Note that we assume users will input the remind-date in the same timezone as the event-date. Remind them?
--- Remind users in the view that 160+ character messages will be split into several text messages and billed separately.
+-- Remind users in the view that 160+ character messages will be split into several text messages and billed separately?
 
 Phase2: MAKE IT MO PRETTIFUL!
 -- Use CSS for labelless, side by side dropdowns for the time.
--- Clockwork art deco logo by Neil Miller.
 -- Flesh out the homepage. Talk about data privacy.
 -- Overlay/lightbox-ish-thing on successful form submission to inform user.
 -- Calendar presentation needs some CSS help because you can't see the next/prev month buttons.
@@ -20,7 +18,6 @@ Phase2: MAKE IT MO PRETTIFUL!
 Phase3: MAKE IT MO ROBUSTERFIED!
 -- Recover-reminders.
 -- Create timestamps during validation and check with :satisfies that reminder is after (local-time:now)?
--- Ensure calendar defaults to date of today. Shouldn't need to click if they want today's date.
 -- Provide fallback textfield if they don't use JS.
 ---- :Satisfies function needed in this case, too. "dd-mm-yyyy"
 ------ Regex OR split-sequence, then count elements and ensure each parses as

@@ -27,8 +27,10 @@
     :ignore-default-dependencies nil ;; accept the defaults
     :hostnames '("clockwork.redlinernotes.com")
     :dependencies '((:stylesheet "jquery-ui")
+		    (:stylesheet "clockwork")
 		    (:script "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js")
 		    (:script "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js")
+		    (:script "http://cdn.jquerytools.org/1.2.5/tiny/jquery.tools.min.js")
 		    (:javascript-code "var $jquery = jQuery.noConflict();"))
     :debug t
     )
