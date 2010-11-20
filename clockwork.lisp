@@ -14,7 +14,8 @@
 		#:make-timer
 		#:schedule-timer)
   (:export #:start-clockwork
-	   #:stop-clockwork)
+	   #:stop-clockwork
+	   #:recover-reminders)
   (:documentation
    "A web application based on Weblocks."))
 
