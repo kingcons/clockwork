@@ -33,8 +33,6 @@
     (persist-object *clockwork-store* new-reminder))
   (reset-form-widget widget))
 
-
-
 (defun create-reminder (form-data)
   (with-form-values (subject summary) form-data
     (let ((timestamps (get-timestamps form-data)))
