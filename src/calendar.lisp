@@ -26,15 +26,12 @@
   (with-html
     (:input :type "hidden" :name (name-of field) :value (datestring))
     (:div :id "datepicker"
-	  (send-script
-	   (ps:ps
-	     ($jquery (lambda ()
-			(ps:chain ($jquery "#datepicker")
-				  (datepicker
-				   (ps:create date-format "dd-mm-yy"
-					      on-select (lambda (date inst)
-							  (ps:chain ($jquery "[name=event-date]")
-								    (val date)))))))))))))
+      (send-script '($jquery (lambda ()
+			       (ps:chain ($jquery "#datepicker")
+					 (datepicker (ps:create date-format "dd-mm-yy"
+								on-select (lambda (date inst)
+									    (ps:chain ($jquery "[name=event-date]")
+										      (val date))))))))))))
 
 (defun datestring ()
   (subseq (format-timestring nil (now) :format '(:day "-" :month "-" :year)) 0 10))

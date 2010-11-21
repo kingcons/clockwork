@@ -16,14 +16,24 @@
     (form-widget-initialize-from-view reminder-form 'reminder-form-view)
     reminder-form))
 
-(defun thank-user-lightbox ()
-  ())
+(defun display-overlay (content)
+  (with-html
+    (:div :id "overlay-content"
+      (:img :src "/pub/images/clockwork_logo.jpg" :height "40%" :width "40%")
+      (:h3 content)
+      (send-script '(ps:chain ($jquery "#overlay-content")
+		     (overlay
+		      (ps:create top 400
+		       load t)))))))
 
 (defun submit-reminder-form (widget)
-  (thank-user-lightbox)
+  ;(display-overlay "Thanks for your submission.")
   (let ((new-reminder (create-reminder widget)))
     (schedule new-reminder)
-    (persist-object *clockwork-store* new-reminder)))
+    (persist-object *clockwork-store* new-reminder))
+  (reset-form-widget widget))
+
+
 
 (defun create-reminder (form-data)
   (with-form-values (subject summary) form-data
