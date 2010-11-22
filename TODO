@@ -1,19 +1,16 @@
 TODO:
-Add row and column support to textarea presentation.
+Add row and column support to textarea field-widget/presentation.
 
 REMINDERS:
 -- Remind users in the view that 160+ character messages will be split into several text messages and billed separately?
 
 Phase2: MAKE IT MO PRETTIFUL!
--- Kill the session/refresh the form after submission.
 -- Use CSS for labelless, side by side dropdowns for the time.
 -- Flesh out the homepage. Talk about data privacy. Contact us? (just a mailto:cl.ockwork.webdev@gmail.com or overlay form?)
 -- Overlay/lightbox-ish-thing on successful form submission to inform user.
--- Calendar presentation needs some CSS help because you can't see the next/prev month buttons.
 -- Once send method is selected form changes to have the appropriate fields via AJAX.
 Phase3: MAKE IT MO ROBUSTERFIED!
 -- What about network failures during send-email? Handle it!
--- Create timestamps during validation and check with :satisfies that reminder is after (local-time:now)?
 -- Provide fallback textfield if they don't use JS.
 ---- :Satisfies function needed in this case, too. "dd-mm-yyyy"
 ------ Regex OR split-sequence, then count elements and ensure each parses as

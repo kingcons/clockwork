@@ -20,6 +20,7 @@
       (send-script '($jquery (lambda ()
 			       (ps:chain ($jquery "#datepicker")
 					 (datepicker (ps:create date-format "dd-mm-yy"
+								min-date 0
 								on-select (lambda (date inst)
 									    (ps:chain ($jquery "[name=event-date]")
 										      (val date))))))))))))
