@@ -71,7 +71,7 @@
 					      ("2 weeks before" . 1209600)))
 	     :requiredp t)
   (subject :requiredp t)
-  (summary :present-as (textarea :rows 5))
+  (message :present-as (textarea :rows 5))
   (honeypot :label "Leave this blank" :satisfies #'null))
 
 (defun valid-email (user-input)

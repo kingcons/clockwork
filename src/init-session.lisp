@@ -27,18 +27,17 @@
 		       load t)))))))
 
 (defun submit-reminder-form (widget)
-  ;(display-overlay "Thanks for your submission.")
   (let ((new-reminder (create-reminder widget)))
     (schedule new-reminder)
     (persist-object *clockwork-store* new-reminder))
   (reset-form-widget widget))
 
 (defun create-reminder (form-data)
-  (with-form-values (subject summary) form-data
+  (with-form-values (subject message) form-data
     (let ((timestamps (get-timestamps form-data)))
       (make-instance 'reminder
 		     :emails (get-emails form-data)
 		     :title subject
-		     :summary summary
+		     :message message
 		     :timestamp (first timestamps)
 		     :at (second timestamps)))))

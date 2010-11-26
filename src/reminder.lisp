@@ -19,8 +19,9 @@
    (timestamp :reader reminder-timestamp
 	      :initarg :timestamp
 	      :type timestamp)
-   (summary :reader reminder-summary
-	    :initarg :summary
+   (message :reader reminder-message
+	    :initarg :message
+	    :initform ""
 	    :type string)
    (at :reader reminder-at
        :initarg :at
@@ -35,7 +36,7 @@
 			      :style (if (sms-mail-p email)
 					 :plain
 					 :html))
-      (reminder-summary reminder)))
+      (reminder-message reminder)))
   (delete-persistent-object-by-id *clockwork-store* 'reminder (reminder-id reminder)))
 
 (defgeneric schedule (reminder)

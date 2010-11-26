@@ -6,6 +6,7 @@ REMINDERS:
 
 Phase2: MAKE IT MO PRETTIFUL!
 -- Use CSS for labelless, side by side dropdowns for the time.
+-- Stop defining the height and width of the site-banner.
 -- Flesh out the homepage. Talk about data privacy. Contact us? (just a mailto:cl.ockwork.webdev@gmail.com or overlay form?)
 -- Overlay/lightbox-ish-thing on successful form submission to inform user.
 -- Once send method is selected form changes to have the appropriate fields via AJAX.
@@ -16,7 +17,12 @@ Phase3: MAKE IT MO ROBUSTERFIED!
 ------ Regex OR split-sequence, then count elements and ensure each parses as
 ------ ints less than 32 and 13 and 9999, respectively. Check length 10 too?
 Phase4: MAKE IT MO FEATUROUS!
--- Confirmation email with link to delete reminders?
+-- Also, can we replace our extra headers in with-encrypted-smtp with :html-message t?
+-- Confirmation email with link to delete reminders? Remember to add the link. What does this change about required fields?
+---- Use a sha1 (maybe of the user's email and the OID) with a salt to generate a URI and set up a "selector" to handle it.
+---- The selector will dispatch to a function that calls delete, thanks them for using the service and "deletes" the selector as it will never be called again.
+---- The selector should be registered during reminder creation and both delete and send-and-delete should also remove it.
+---- How do we know which timer is associated with the reminder being deleted? Use :name and object-ids?
 -- Add support for repeating events? (Daily,Weekly,Monthly,Yearly?)
 -- This shouldn't happen but are we sure things are resilient to system clock changes?
 Add some simple logging for submissions, sends and deletions?
