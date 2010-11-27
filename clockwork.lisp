@@ -29,7 +29,7 @@
     :init-user-session 'clockwork::init-user-session
     :autostart nil                   ;; have to start the app manually
     :ignore-default-dependencies nil ;; accept the defaults
-    :hostnames '("clockwork.redlinernotes.com")
+    :hostnames '("clockwork.*.com")
     :dependencies '((:stylesheet "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/themes/ui-darkness/jquery-ui.css")
 		    (:stylesheet "clockwork")
 		    (:script "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js")
