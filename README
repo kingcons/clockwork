@@ -1,0 +1,15 @@
+Clockwork is an event reminder service styled after the now defunct yourli.st.
+
+It consists of a single page with a form. When that form is filled out and submitted, you will receive a reminder at the scheduled time.
+
+Clockwork is built on top of Common Lisp and Weblocks. It should be portable to all conforming Common Lisp implementations but SBCL and CCL are recommended.
+Like Weblocks, Clockwork uses the Hunchentoot web server by Edi Weitz. It is recommended that you run Clockwork behind a proxy which forwards requests to a clockwork subdomain (i.e. "clockwork.*.com").
+If you choose not to run clockwork on it's own subdomain, you should edit the :hostnames field in the defwebapp form in clockwork.lisp.
+
+Additionally, Clockwork requires a username and password for an encrypted SMTP service. Gmail, among others, provides free encrypted SMTP and clockwork uses it by default.
+You should edit the conf/config.lisp file to set the *smtp-user* and *smtp-pass* appropriately. If you wish to use a service other than gmail you will need to edit *mail-server* in src/messaging.lisp.
+You may wish to ensure that git does not try to track your username and password. If so, before editing the file run git update-index --assume-unchanged conf/config.lisp.
+
+Finally, if you are running Clockwork as a system service/daemon we recommend that you run (clockwork:recover-reminders) on reboot.
+
+Further details on how to setup Clockwork and its making can be found at: http://redlinernotes.com/blog/?p=1232 http://redlinernotes.com/blog/?p=1243 and http://redlinernotes.com/blog/?p=1277

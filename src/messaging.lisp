@@ -2,8 +2,7 @@
 
 (defparameter *mail-server* "smtp.gmail.com")
 
-(defmacro with-encrypted-smtp ((&key to subject style
-			       (from "cl.ockwork.webdev@gmail.com"))
+(defmacro with-encrypted-smtp ((&key to subject style (from *smtp-user*))
 			       &body body)
   `(cl-smtp:send-email ,*mail-server* ,from ,to ,subject
 		       (if (eql ,style :html)

@@ -15,9 +15,6 @@ Phase3: MAKE IT MO FEATUROUS!
 ---- The selector should be registered during reminder creation and both delete and send-and-delete should also remove it.
 ---- How do we know which timer is associated with the reminder being deleted? Use :name and object-ids?
 -- Can we replace our extra headers in with-encrypted-smtp with :html-message t?
-Add some simple logging for submissions, sends and deletions?
-Add a Readme file (markdown?) that points to the CL Web Primer 1 article and mentions the need to add conf/config.lisp with a valid gmail email+pass.
--- The Readme should have a note about git update-index --assume-unchanged for the config file and also a note about calling recover-reminders in init.lisp.
 Phase4: MAKE IT MO ROBUSTERFIED!
 -- What about network failures during send-email? Handle it!
 -- Provide fallback textfield if they don't use JS.
