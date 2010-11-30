@@ -1,33 +1,29 @@
 TODO:
 Add row and column support to textarea field-widget/presentation.
 
-REMINDERS:
--- Remind users in the view that 160+ character messages will be split into several text messages and billed separately?
-
 Phase2: MAKE IT MO PRETTIFUL!
--- Use CSS for labelless, side by side dropdowns for the time.
--- Stop defining the height and width of the site-banner.
--- Flesh out the homepage. Talk about data privacy. Contact us? (just a mailto:cl.ockwork.webdev@gmail.com or overlay form?)
 -- Overlay/lightbox-ish-thing on successful form submission to inform user.
 -- Once send method is selected form changes to have the appropriate fields via AJAX.
-Phase3: MAKE IT MO ROBUSTERFIED!
--- What about network failures during send-email? Handle it!
--- Provide fallback textfield if they don't use JS.
----- :Satisfies function needed in this case, too. "dd-mm-yyyy"
------- Regex OR split-sequence, then count elements and ensure each parses as
------- ints less than 32 and 13 and 9999, respectively. Check length 10 too?
-Phase4: MAKE IT MO FEATUROUS!
--- Also, can we replace our extra headers in with-encrypted-smtp with :html-message t?
+-- Improve the main-content. Move into layout.lisp?
+-- Style the everloving hell out of it. Make it look *good*.
+---- What's the banner look like at 50%?
+-- Use CSS for labelless, side by side dropdowns for the time.
+Phase3: MAKE IT MO FEATUROUS!
 -- Confirmation email with link to delete reminders? Remember to add the link. What does this change about required fields?
 ---- Use a sha1 (maybe of the user's email and the OID) with a salt to generate a URI and set up a "selector" to handle it.
 ---- The selector will dispatch to a function that calls delete, thanks them for using the service and "deletes" the selector as it will never be called again.
 ---- The selector should be registered during reminder creation and both delete and send-and-delete should also remove it.
 ---- How do we know which timer is associated with the reminder being deleted? Use :name and object-ids?
--- Add support for repeating events? (Daily,Weekly,Monthly,Yearly?)
--- This shouldn't happen but are we sure things are resilient to system clock changes?
+-- Can we replace our extra headers in with-encrypted-smtp with :html-message t?
 Add some simple logging for submissions, sends and deletions?
 Add a Readme file (markdown?) that points to the CL Web Primer 1 article and mentions the need to add conf/config.lisp with a valid gmail email+pass.
 -- The Readme should have a note about git update-index --assume-unchanged for the config file and also a note about calling recover-reminders in init.lisp.
+Phase4: MAKE IT MO ROBUSTERFIED!
+-- What about network failures during send-email? Handle it!
+-- Provide fallback textfield if they don't use JS.
+---- :Satisfies function needed in this case, too. "dd-mm-yyyy"
+------ Regex OR split-sequence, then count elements and ensure each parses as
+------ ints less than 32 and 13 and 9999, respectively. Check length 10 too?
 
 OPTIONALS:
 Use the string-list and style types to make reminder class stricter?

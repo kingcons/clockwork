@@ -11,6 +11,24 @@
     (:div :id "site-banner"
 	  (:img :src "/pub/images/clockwork_logo.jpg"))))
 
+(defmethod render-widget :after ((content form-widget) &rest args)
+  (declare (ignore args))
+  (with-html
+    (:div :id "main-content"
+	  (:p :id "welcome"
+	      "Welcome to Clockwork!")
+	  (:p :id "instructions"
+	      "Fill out and submit the form to get an email or text reminder.")
+	  (:p :id "privacy"
+	      "This site will not abuse your privacy or your data."))))
+
+(defmethod render-page-body :after ((app clockwork) rendered-html)
+  (with-html
+    (:div :id "footer"
+	  (:p :id "contact-info" "Please feel free to "
+	      (:a :href "http://github.com/redline6561/clockwork/issues/" "Report Bugs") " or "
+	      (:a :href "mailto:cl.ockwork.webdev@gmail.com" "Contact Us") " with any questions or comments.") (:br))))
+
 (defun make-reminder-form ()
   (let ((reminder-form (make-instance 'form-widget :on-success 'submit-reminder-form)))
     (form-widget-initialize-from-view reminder-form 'reminder-form-view)
