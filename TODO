@@ -9,11 +9,10 @@ Phase2: MAKE IT MO PRETTIFUL!
 ---- What's the banner look like at 50%?
 -- Use CSS for labelless, side by side dropdowns for the time.
 Phase3: MAKE IT MO FEATUROUS!
--- Confirmation email with link to delete reminders? Remember to add the link. What does this change about required fields?
----- Use a sha1 (maybe of the user's email and the OID) with a salt to generate a URI and set up a "selector" to handle it.
----- The selector will dispatch to a function that calls delete, thanks them for using the service and "deletes" the selector as it will never be called again.
----- The selector should be registered during reminder creation and both delete and send-and-delete should also remove it.
----- How do we know which timer is associated with the reminder being deleted? Use :name and object-ids?
+-- Confirmation email with link to delete reminders. Don't change required fields. Send the link via SMS if needed.
+---- Use a sha1 (maybe of the user's email and the OID) with a salt to generate a URI and set up a selector to handle it.
+---- The selector should be registered during reminder creation and both cancel and send-and-delete should also remove it.
+---- The selector will dispatch to a function that calls cancel, thanks them for using the service and removes the selector.
 -- Can we replace our extra headers in with-encrypted-smtp with :html-message t?
 Phase4: MAKE IT MO ROBUSTERFIED!
 -- What about network failures during send-email? Handle it!
