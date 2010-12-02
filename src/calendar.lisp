@@ -26,4 +26,4 @@
 										      (val date))))))))))))
 
 (defun datestring ()
-  (subseq (format-timestring nil (now) :format '(:day "-" :month "-" :year)) 0 10))
+  (subseq (format-timestring nil (now) :format '((:day 2) "-" (:month 2) "-" :year)) 0 10))
