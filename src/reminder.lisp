@@ -35,13 +35,15 @@ by the reminder they trigger.")
   (:documentation "Send the user their reminder as requested and then remove it from the datastore."))
 
 (defmethod send-and-delete ((reminder reminder))
-  (loop for email in (reminder-emails reminder) do
-    (with-encrypted-smtp (:to email :subject (reminder-title reminder)
-			      :style (if (sms-mail-p email)
-					 :plain
-					 :html))
-      (reminder-message reminder)))
-  (delete-persistent-object-by-id *clockwork-store* 'reminder (reminder-id reminder)))
+  (let ((id (reminder-id reminder)))
+    (loop for email in (reminder-emails reminder) do
+      (with-encrypted-smtp (:to email :subject (reminder-title reminder)
+				:style (if (sms-mail-p email)
+					   :plain
+					   :html))
+	(reminder-message reminder)))
+    (remhash id *timers*)
+    (delete-persistent-object-by-id *clockwork-store* 'reminder id)))
 
 (defgeneric schedule (reminder)
   (:documentation "Schedule the reminder to be sent at the time the user requested."))
@@ -60,6 +62,7 @@ by the reminder they trigger.")
 (defmethod cancel ((reminder reminder))
   (let ((id (reminder-id reminder)))
     (trivial-timers:unschedule-timer (gethash id *timers*))
+    (remhash id *timers*)
     (delete-persistent-object-by-id *clockwork-store* 'reminder id)))
 
 (defun recover-reminders ()
