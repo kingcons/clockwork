@@ -13,6 +13,10 @@
   (:import-from :trivial-timers
 		#:make-timer
 		#:schedule-timer)
+  (:import-from :ironclad
+		#:digest-sequence
+		#:byte-array-to-hex-string
+		#:ascii-string-to-byte-array)
   (:export #:start-clockwork
 	   #:stop-clockwork
 	   #:recover-reminders)

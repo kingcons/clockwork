@@ -11,7 +11,7 @@
     :author "Brit Butler"
     :licence "LLGPL"
     :description "A yourli.st clone"
-    :depends-on (:weblocks :cl-smtp :local-time :trivial-timers :split-sequence)
+    :depends-on (:weblocks :cl-smtp :local-time :trivial-timers :split-sequence :ironclad)
     :components ((:file "clockwork")
 		 (:module conf
 		  :components ((:file "stores")
@@ -20,8 +20,9 @@
 		 (:module src
 		  :components ((:file "calendar")
 			       (:file "messaging")
+			       (:file "hashing")
 			       (:file "reminder"
-				      :depends-on ("messaging"))
+				      :depends-on ("messaging" "hashing"))
 			       (:file "forms"
 				      :depends-on ("messaging" "calendar"))
 			       (:file "init-session"
