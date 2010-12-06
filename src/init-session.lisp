@@ -46,8 +46,8 @@
 
 (defun submit-reminder-form (widget)
   (let ((new-reminder (create-reminder widget)))
-    (schedule new-reminder)
-    (persist-object *clockwork-store* new-reminder))
+    (persist-object *clockwork-store* new-reminder)
+    (schedule new-reminder))
   (reset-form-widget widget))
 
 (defun create-reminder (form-data)
