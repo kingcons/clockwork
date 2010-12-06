@@ -8,6 +8,10 @@
 ;  (and (listp arg)
 ;       (every (lambda (el) (member el :plaintext :html)) arg)))
 
+(defparameter *timers* (make-hash-table)
+  "A hash table that holds all scheduled timers keyed
+by the reminder they trigger.")
+
 (defclass reminder ()
   ((id :reader reminder-id) ;; all classes to be persisted with cl-prevalence need an id slot
    (emails :reader reminder-emails
@@ -43,23 +47,20 @@
   (:documentation "Schedule the reminder to be sent at the time the user requested."))
 
 (defmethod schedule ((reminder reminder))
-  (let ((secs-until-reminder (round (timestamp-difference (reminder-at reminder) (now)))))
-    (schedule-timer (make-timer (lambda ()
-				  (send-and-delete reminder))
-				:thread t
-				:name (reminder-id reminder))
-		    secs-until-reminder)))
+  (let ((secs-until-reminder (round (timestamp-difference (reminder-at reminder) (now))))
+	(timer (make-timer (lambda () (send-and-delete reminder))
+			   :thread t
+			   :name (reminder-id reminder))))
+    (setf (gethash (reminder-id reminder) *timers*) timer)
+    (schedule-timer timer secs-until-reminder)))
 
 (defgeneric cancel (reminder)
   (:documentation "Unschedule the timer associated with the reminder then remove it from the datastore."))
 
 (defmethod cancel ((reminder reminder))
-  (let ((id (reminder-id reminder))
-	(timers (trivial-timers:list-all-timers)))
-    (loop for timer in timers
-	  when (= id (trivial-timers:timer-name timer)) do
-	    (trivial-timers:unschedule-timer timer)
-	    (return (delete-persistent-object-by-id *clockwork-store* 'reminder id)))))
+  (let ((id (reminder-id reminder)))
+    (trivial-timers:unschedule-timer (gethash id *timers*))
+    (delete-persistent-object-by-id *clockwork-store* 'reminder id)))
 
 (defun recover-reminders ()
   "A function to reschedule reminders after a reboot. Based on testing,
