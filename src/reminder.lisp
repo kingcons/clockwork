@@ -69,7 +69,7 @@ on a given reminder.")
 		:body (if (sms-mail-p email)
 			  (format nil "~A~A" message-base link)
 			  (cl-who:with-html-output-to-string (html)
-			    (:p message-base (:a :href link "Unschedule Reminder")))))))
+			    (:p (cl-who:esc message-base) (:a :href link "Unschedule Reminder")))))))
 
 (defgeneric make-unschedule-link (reminder)
   (:documentation "Create a link to unschedule the reminder from a hash of the emails, reminder-id and a salt.
