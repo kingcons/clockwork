@@ -64,8 +64,7 @@ on a given reminder.")
 	 (email (first (reminder-emails reminder)))
 	 (message-base "Your reminder has been scheduled. If you would like to unschedule it, simply visit the following link: "))
     (send-email :to email
-		:subject (concatenate 'string "Clockwork Reminder: "
-				      (reminder-title reminder))
+		:subject (format nil "Clockwork Reminder: ~A" (reminder-title reminder))
 		:style (if (sms-mail-p email) :plain :html)
 		:body (if (sms-mail-p email)
 			  (format nil "~A~A" message-base link)

@@ -11,7 +11,8 @@ Phase2: MAKE IT MO PRETTIFUL!
 Phase3: MAKE IT MO FEATUROUS!
 -- jQuery overlay that can be called whenever to display arbitrary html.
 -- Confirmation email with link to delete reminders. Send the link to (first reminder-emails). (send-unschedule-message)
----- TEST IT!
+---- Unscheduling works but the overlay never gets called *at all* because of the redirect.
+---- Get the overlay working, then figure out what to do about this.
 Phase4: MAKE IT MO ROBUSTERFIED!
 -- What about network failures during send-email? Handle it!
 
