@@ -5,7 +5,7 @@ It consists of a single page with a form. When that form is filled out and submi
 Clockwork is built on top of Common Lisp and Weblocks. It should be portable to all conforming Common Lisp implementations but SBCL and CCL are recommended.
 Like Weblocks, Clockwork uses the Hunchentoot web server by Edi Weitz. It is recommended that you run Clockwork behind a proxy which forwards requests to a clockwork subdomain (i.e. "clockwork.*.com").
 If you choose not to run clockwork on it's own subdomain, you should edit the :hostnames field in the defwebapp form in clockwork.lisp.
-You also need to set *clockwork-host* based on what server the code is running on. It assumes you are running clockwork on a subdomain so for e.g "clockwork.redlinernotes.com" we recomend setting it to "redlinernotes.com". Only the make-unschedule-link and unschedule methods in src/reminder.lisp make use of this variable.
+You also need to set *clockwork-host* based on what server the code is running on. It assumes you are running clockwork on a subdomain so for e.g "clockwork.redlinernotes.com" we recomend setting it to "redlinernotes.com". Only the make-unschedule-link method in src/reminder.lisp makes use of this variable.
 It is recommended to run clockwork as a daemon and set this value with (setf *clockwork-host* "your-hostname.whatever") in your init file.
 See this link for further details: http://redlinernotes.com/blog/?p=1232
 
