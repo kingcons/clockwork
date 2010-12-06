@@ -3,7 +3,24 @@
 ;; Define callback function to initialize new sessions
 (defun init-user-session (root)
   (setf (widget-children root)
-	(make-reminder-form)))
+	(clockwork-toplevel)))
+
+;; With credit and many thanks for this paste from nunb: http://paste.lisp.org/display/97432
+(defun clockwork-toplevel ()
+  (make-instance 'clockwork-toplevel))
+
+(defwidget clockwork-toplevel (on-demand-selector)
+  ()
+  (:default-initargs :lookup-function #'clockwork-dispatch))
+
+(defmethod clockwork-dispatch (selector tokens)
+  (if (string= (first tokens) "unschedule")
+      (multiple-value-bind (closure found-p) (gethash (second tokens) *unschedule-closures*)
+	(if found-p
+	    (values (make-instance 'funcall-widget :fun-designator closure) tokens nil)
+	    nil))
+      (values (make-reminder-form)
+	      tokens nil)))
 
 (defmethod render-widget :before ((content form-widget) &rest args)
   (declare (ignore args))
