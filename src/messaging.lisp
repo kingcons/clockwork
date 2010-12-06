@@ -2,19 +2,15 @@
 
 (defparameter *mail-server* "smtp.gmail.com")
 
-(defmacro with-encrypted-smtp ((&key to subject style (from *smtp-user*))
-			       &body body)
-  `(cl-smtp:send-email ,*mail-server* ,from ,to ,subject
-		       (if (eql ,style :html)
-			   (with-html ,@body) ;; TODO: make a nicer render style
-			   ,@body)
-		       ;; it's worth noting send-email takes a :cc argument
-		       :ssl :tls
-		       :authentication '(,*smtp-user* ,*smtp-pass*)
-		       ,@(when (eql style :html)
-			       '(:extra-headers
-				 '(("Content-type"
-				    "text/html; charset=\"iso-8859-1\""))))))
+(defun send-email (&key to subject (style :plain)
+		  (from *smtp-user*) body)
+  (assert (and to subject body))
+  (cl-smtp:send-email *mail-server* from to subject body
+		      :ssl :tls
+		      :authentication `(,*smtp-user* ,*smtp-pass*)
+		      :extra-headers (when (eql style :html)
+				       '(("Content-type"
+					  "text/html; charset=\"iso-8859-1\"")))))
 
 (defparameter *sms-gateways*
   ;; list is derived from http://en.wikipedia.org/wiki/List_of_SMS_gateways
