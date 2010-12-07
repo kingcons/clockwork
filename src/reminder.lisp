@@ -57,7 +57,8 @@ on a given reminder.")
     (send-unschedule-message reminder)))
 
 (defgeneric send-unschedule-message (reminder)
-  (:documentation "Create a link which unschedules the reminder and send an email with that link to the owner of the reminder."))
+  (:documentation "Create a link which unschedules the reminder and send an email
+with that link to the owner of the reminder."))
 
 (defmethod send-unschedule-message ((reminder reminder))
   (let* ((link (make-unschedule-link reminder))
@@ -69,11 +70,13 @@ on a given reminder.")
 		:body (if (sms-mail-p email)
 			  (format nil "~A~A" message-base link)
 			  (cl-who:with-html-output-to-string (html)
-			    (:p (cl-who:esc message-base) (:a :href link "Unschedule Reminder")))))))
+			    (:p (cl-who:esc message-base)
+				(:a :href link "Unschedule Reminder")))))))
 
 (defgeneric make-unschedule-link (reminder)
-  (:documentation "Create a link to unschedule the reminder from a hash of the emails, reminder-id and a salt.
-Store the hash in the reminder and a closure to unschedule the reminder in a map keyed by the hash. Return the link."))
+  (:documentation "Hash the reminder and create a link from the hash which will
+unschedule the reminder. Store the hash in the reminder and a closure to unschedule
+the reminder in a map keyed by the hash. Return the link."))
 
 (defmethod make-unschedule-link ((reminder reminder))
   (let* ((hash (hash reminder))
@@ -97,8 +100,8 @@ Store the hash in the reminder and a closure to unschedule the reminder in a map
     (hash-concat string-list)))
 
 (defgeneric unschedule (reminder)
-  (:documentation "Unschedule the timer associated with the reminder and remove it from the datastore,
-then redirect the user and thank them for "))
+  (:documentation "Unschedule the timer associated with the reminder and remove any
+copies or references to the reminder or timer."))
 
 (defmethod unschedule ((reminder reminder))
   (let ((id (reminder-id reminder)))
