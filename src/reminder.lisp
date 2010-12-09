@@ -1,12 +1,13 @@
 (in-package :clockwork)
 
-(defparameter *clockwork-host* nil)
+(defparameter *clockwork-host* nil
+  "A string representing the domain that clockwork is a subdomain of.")
 
 (defparameter *timers* (make-hash-table)
-  "A hash table that holds all scheduled timers keyed by the reminder they trigger.")
+  "A hash table that holds all scheduled timers keyed by their reminder's id.")
 
 (defparameter *unschedule-closures* (make-hash-table :test #'equal)
-  "A hash table that holds closures which call unschedule on a given reminder.")
+  "A hash table that holds closures which unschedule a reminder keyed by that reminder's hash.")
 
 (defclass reminder ()
   ((id :reader reminder-id) ;; classes to be persisted with the Store API need an id slot
@@ -28,27 +29,23 @@
        :type timestamp)))
 
 (defgeneric send-reminder (reminder &key delete-p)
-  (:documentation "Send the  reminder. If delete-p is true, delete the reminder afterwards."))
+  (:documentation "Send the reminder. If delete-p is true, delete the reminder afterwards."))
 
 (defmethod send-reminder ((reminder reminder) &key delete-p)
-  (let ((id (reminder-id reminder)))
-    (send-email :to (reminder-emails reminder)
-		:subject (reminder-title reminder)
-		:style :plain
-		:body (reminder-message reminder))
-    (when delete-p
-      (delete-reminder reminder))))
+  (send-email :to (reminder-emails reminder)
+	      :subject (reminder-title reminder)
+	      :style :plain
+	      :body (reminder-message reminder))
+  (when delete-p
+    (delete-reminder (reminder-id reminder))))
 
-(defgeneric delete-reminder (reminder &key unschedule-p)
-  (:documentation "Delete the reminder, its timer and any references to them.
-If unschedule-p is true, unschedule the timer first."))
-
-(defmethod delete-reminder ((reminder reminder) &key unschedule-p)
-  (let ((id (reminder-id reminder)))
-    (when unschedule-p
-      (trivial-timers:unschedule-timer (gethash id *timers*)))
-    (remhash id *timers*)
-    (delete-persistent-object-by-id *clockwork-store* 'reminder id)))
+(defun delete-reminder (id &key unschedule-p)
+  "Delete the reminder, its timer and any references to them.
+If unschedule-p is true, unschedule the timer first."
+  (when unschedule-p
+    (trivial-timers:unschedule-timer (gethash id *timers*)))
+  (remhash id *timers*)
+  (delete-persistent-object-by-id *clockwork-store* 'reminder id))
 
 (defgeneric schedule-reminder (reminder)
   (:documentation "Schedule the reminder to be sent at the time the user requested."))
@@ -84,7 +81,7 @@ If you would like to unschedule it, simply visit the following link: "))
 (defun make-unschedule-link (reminder)
   "Hash the reminder and create a link from the hash which will
 unschedule the reminder. Store a closure to unschedule the reminder
-in a map keyed by the reminder-id. Return the link."
+in a map keyed by the hash. Return the link."
   (check-type reminder reminder)
   (let* ((hash (hash reminder))
 	 (link (format nil "http://clockwork.~a/unschedule/~a" *clockwork-host* hash)))
