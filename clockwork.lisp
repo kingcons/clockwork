@@ -19,7 +19,8 @@
 		#:ascii-string-to-byte-array)
   (:export #:start-clockwork
 	   #:stop-clockwork
-	   #:recover-reminders)
+	   #:recover-reminders
+	   #:*clockwork-host*)
   (:documentation
    "A web application based on Weblocks."))
 
