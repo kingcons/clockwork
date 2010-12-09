@@ -6,8 +6,8 @@
 (defparameter *timers* (make-hash-table)
   "A hash table that holds all scheduled timers keyed by their reminder's id.")
 
-(defparameter *unschedule-closures* (make-hash-table :test #'equal)
-  "A hash table that holds closures which unschedule a reminder keyed by that reminder's hash.")
+(defparameter *reminders* (make-hash-table :test #'equal)
+  "A hash table that holds reminders keyed by their hash.")
 
 (defclass reminder ()
   ((id :reader reminder-id) ;; classes to be persisted with the Store API need an id slot
@@ -78,18 +78,12 @@ If you would like to unschedule it, simply visit the following link: "))
 				(:i "Thanks for using clockwork!")))))))
 
 (defun make-unschedule-link (reminder)
-  "Hash the reminder and create a link from the hash which will
-unschedule the reminder. Store a closure to unschedule the reminder
-in a map keyed by the hash. Return the link."
+  "Hash the reminder and create a link from the hash which will unschedule the reminder.
+Store the reminder in a map keyed by the hash. Return the link."
   (check-type reminder reminder)
   (let* ((hash (hash reminder))
 	 (link (format nil "http://clockwork.~a/unschedule/~a" *clockwork-host* hash)))
-    (setf (gethash hash *unschedule-closures*)
-	  (lambda ()
-	    (delete-reminder (reminder-id reminder) :unschedule-p t)
-	    (remhash hash *unschedule-closures*)
-	    (redirect (format nil "http://clockwork.~a/" *clockwork-host*))
-	    (display-overlay "Thank you for using Clockwork.")))
+    (setf (gethash hash *reminders*) reminder)
     link))
 
 (defun hash (reminder)
@@ -101,7 +95,6 @@ in a map keyed by the hash. Return the link."
     (hash-concat string-list)))
 
 (defun recover-reminders ()
-  "A function to reschedule reminders after a reboot. Based on testing,
-any that expired during the reboot will be sent when the schedule method is called.
-Better late than never, right?"
+  "A function to reschedule reminders after a reboot. Any that expired during
+the reboot will be sent when the schedule method is called. Better late than never."
   (mapcar #'schedule-reminder (find-persistent-objects *clockwork-store* 'reminder)))

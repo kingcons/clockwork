@@ -16,9 +16,9 @@
 (defmethod clockwork-dispatch (selector tokens)
   (if (and (= (length tokens) 2)
 	   (string= (first tokens) "unschedule"))
-      (let ((closure (gethash (second tokens) *unschedule-closures*)))
+      (let ((reminder (gethash (second tokens) *reminders*)))
 	(if closure
-	    (values (make-instance 'funcall-widget :fun-designator closure) tokens nil)
+	    (values (make-instance 'funcall-widget :fun-designator #'unschedule-page) tokens nil)
 	    nil))
       (values (make-reminder-form) tokens nil)))
 
@@ -76,3 +76,9 @@
 		     :message message
 		     :timestamp (first timestamps)
 		     :at (second timestamps)))))
+
+(defun unschedule-page ()
+  (delete-reminder (reminder-id reminder) :unschedule-p t)
+  (remhash (second tokens) *reminders*)
+  (redirect (format nil "http://clockwork.~a/" *clockwork-host*))
+  (display-overlay "Thank you for using Clockwork."))
