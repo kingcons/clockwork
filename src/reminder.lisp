@@ -86,7 +86,7 @@ in a map keyed by the hash. Return the link."
 	 (link (format nil "http://clockwork.~a/unschedule/~a" *clockwork-host* hash)))
     (setf (gethash hash *unschedule-closures*)
 	  (lambda ()
-	    (delete-reminder reminder :unschedule-p t)
+	    (delete-reminder (reminder-id reminder) :unschedule-p t)
 	    (remhash hash *unschedule-closures*)
 	    (redirect (format nil "http://clockwork.~a/" *clockwork-host*))
 	    (display-overlay "Thank you for using Clockwork.")))
