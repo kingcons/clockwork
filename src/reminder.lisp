@@ -40,8 +40,7 @@
     (delete-reminder (reminder-id reminder))))
 
 (defun delete-reminder (id &key unschedule-p)
-  "Delete the reminder, its timer and any references to them.
-If unschedule-p is true, unschedule the timer first."
+  "Delete the reminder and its timer. If unschedule-p is true, unschedule the timer first."
   (when unschedule-p
     (trivial-timers:unschedule-timer (gethash id *timers*)))
   (remhash id *timers*)
